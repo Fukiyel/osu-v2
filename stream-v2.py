@@ -4,8 +4,8 @@ import tkinter as tk
 
 def spdGraph():
 	spdGraph = [0]
-	for i in range(len(osu_periods)):
-		spdGraph.append(.1 * (1000 / osu_periods[i]) ** 3)
+	for i, val in enumerate(osu_periods):
+		spdGraph.append(.1 * (1000 / val) ** 3)
 	return spdGraph
 def staGraph():
 	staGraph = [0]
@@ -21,27 +21,6 @@ def staGraph():
 				staGraph.append(0)
 	return staGraph
 
-def avg_98():
-	list = sorted(osu_staGraph, reverse=True)
-	avg_98 = 0
-	for i in range(len(list)):
-		list[i] = .02 * list[i] * .98 ** i
-		avg_98 += list[i]
-	return avg_98
-def avg_99():
-	list = sorted(osu_staGraph, reverse=True)
-	avg_99 = 0
-	for i in range(len(list)):
-		list[i] = .01 * list[i] * .99 ** i
-		avg_99 += list[i]
-	return avg_99
-def avg_995():
-	list = sorted(osu_staGraph, reverse=True)
-	avg_995 = 0
-	for i in range(len(list)):
-		list[i] = .005 * list[i] * .995 ** i
-		avg_995 += list[i]
-	return avg_995
 
 def HT(timestamps):
 	for i in range(len(timestamps)):
@@ -117,8 +96,6 @@ for i in range(len(osu_active_timestamps)):
 results_file = open("D:/Code/Python/osu!v2Streams/[osu!v2 - Speed] " + map_name + ".txt","w")
 results_file.write(results)
 
-#print(stats.stdev(osu_spdGraph) + stats.mean(osu_spdGraph))
-
 
 # Iterations of Periods
 """periodsDict = {}
@@ -154,19 +131,10 @@ while position <= osu_active_timestamps[-1]:
 	position += 40
 
 
-print("avg_98 = ", avg_98())
-print("avg_99 = ", avg_99())
-print("avg_995 = ", avg_995())
+print("Stamina* =", max(osu_staGraph))
 
 
 # Graphic Part
-"""plt.subplot(211)
-plt.title(map_name)
-plt.bar(periodsDict.keys(), periodsDict.values(), width=25)
-plt.xlabel("Period (ms)")
-plt.ylabel("Iterations")
-
-plt.subplot(212)"""
 #plt.plot(osu_active_timestamps, osu_spdGraph, color="#ff0040", label="Speed", linewidth=0.2)
 plt.plot(staBookmarks, osu_staGraph, color="#ff4000", label="Stamina")
 
@@ -187,8 +155,9 @@ def stream_refresh():
 
 
 stream_window = tk.Tk()
-stream_window.title("Stream* - " + map_name)
+stream_window.title("osu!v2 - " + map_name)
 stream_window.geometry("400x175")
+# vvv For when i'll find a gud system for speed vvv
 """
 label = tk.LabelFrame(stream_window, text="Speed Value", font="Aller 18")
 label.pack_propagate(0)
